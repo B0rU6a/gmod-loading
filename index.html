@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your DarkRP Server - Loading</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #1a1a1a;
+            color: #ffffff;
+            overflow: hidden;
+        }
+        
+        .container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('https://your-server-domain.com/images/background.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .logo {
+            max-width: 400px;
+            margin-bottom: 20px;
+        }
+        
+        .server-name {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        
+        .server-description {
+            font-size: 18px;
+            max-width: 600px;
+            text-align: center;
+            margin-bottom: 30px;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        
+        .loading-bar {
+            width: 400px;
+            height: 20px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+        
+        .loading-progress {
+            height: 100%;
+            width: 0%;
+            background-color: #3498db;
+            border-radius: 10px;
+            transition: width 0.3s ease;
+        }
+        
+        .loading-text {
+            font-size: 14px;
+            color: #cccccc;
+        }
+        
+        .server-rules {
+            max-width: 600px;
+            margin-top: 40px;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+        }
+        
+        .server-rules h2 {
+            text-align: center;
+            border-bottom: 1px solid #3498db;
+            padding-bottom: 10px;
+        }
+        
+        .server-rules ul {
+            text-align: left;
+        }
+        
+        .social-links {
+            display: flex;
+            margin-top: 20px;
+            gap: 15px;
+        }
+        
+        .social-link {
+            color: white;
+            font-size: 16px;
+            text-decoration: none;
+            padding: 5px 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        
+        .social-link:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img class="logo" src="https://your-server-domain.com/images/logo.png" alt="Server Logo">
+        <div class="server-name">YOUR DARKRP SERVER NAME</div>
+        <div class="server-description">Welcome to the best DarkRP experience! Realistic economy, custom jobs, and an active staff team.</div>
+        
+        <div class="loading-bar">
+            <div class="loading-progress" id="progress-bar"></div>
+        </div>
+        <div class="loading-text" id="loading-text">Loading... Please wait</div>
+        
+        <div class="server-rules">
+            <h2>Server Rules</h2>
+            <ul>
+                <li>No RDM (Random Death Match) - Don't kill players without RP reason</li>
+                <li>No FailRP - Play your role realistically</li>
+                <li>Respect all players and staff members</li>
+                <li>No exploiting or hacking</li>
+                <li>No building in areas that disrupt gameplay</li>
+            </ul>
+        </div>
+        
+        <div class="social-links">
+            <a href="https://discord.gg/yourserver" class="social-link" target="_blank">Discord</a>
+            <a href="https://steamcommunity.com/groups/yourserver" class="social-link" target="_blank">Steam Group</a>
+            <a href="https://your-server-domain.com" class="social-link" target="_blank">Website</a>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        // GameDetails is called by Garry's Mod
+        function GameDetails(servername, serverurl, mapname, maxplayers, steamid, gamemode, volume, language) {
+            document.title = servername + " - Loading";
+            document.querySelector('.server-name').textContent = servername;
+        }
+        
+        // This function is called when a file starts downloading
+        function SetStatusChanged(status) {
+            document.getElementById('loading-text').textContent = status;
+        }
+        
+        // This function is called to update the loading progress
+        function SetFilesTotal(total) {
+            filesTotal = total;
+        }
+        
+        // This function is called when a file has been downloaded
+        function SetFilesNeeded(needed) {
+            filesNeeded = needed;
+        }
+        
+        // Mock loading for testing in browser
+        if (typeof Garry === 'undefined') {
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += Math.random() * 5;
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(interval);
+                    document.getElementById('loading-text').textContent = "Download complete! Joining server...";
+                }
+                document.getElementById('progress-bar').style.width = progress + '%';
+            }, 500);
+        }
+    </script>
+</body>
+</html>
