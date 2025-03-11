@@ -24,16 +24,35 @@
             width: 100%;
             height: 100vh;
             display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            flex-direction: row; /* Changed to row to position info on left */
             background: url('https://dl.dropboxusercontent.com/scl/fi/cme0iuiu0y1ix11eyl8fq/20250311173652_1.jpg?rlkey=i3u8v54p13y9avecvlv2czfha&st=7dwb1jbq&dl=1') no-repeat center center fixed;
             background-size: cover;
             background-position: center;
         }
         
+        /* New server-info section for the left side */
+        .server-info {
+            width: 40%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-left: 50px;
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+        
+        /* New content area for the right side */
+        .content-area {
+            width: 60%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
         .logo {
-            max-width: 400px;
+            max-width: 300px;
             margin-bottom: 20px;
         }
         
@@ -43,18 +62,19 @@
             margin-bottom: 10px;
             text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
             font-family: 'Unbounded', sans-serif;
+            text-align: left;
         }
         
         .server-description {
             font-size: 18px;
-            max-width: 600px;
-            text-align: center;
+            max-width: 500px;
+            text-align: left; /* Changed to left align */
             margin-bottom: 30px;
             text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         }
         
         .loading-bar {
-            width: 400px;
+            width: 300px;
             height: 20px;
             background-color: rgba(255, 255, 255, 0.1);
             border-radius: 10px;
@@ -112,36 +132,38 @@
         .social-link:hover {
             background-color: rgba(255, 255, 255, 0.2);
         }
+        
+        /* New map info style */
+        .map-info {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #cccccc;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <img class="logo" src="https://your-server-domain.com/images/logo.png" alt="Server Logo">
-        <div class="server-name">YOUR DARKRP SERVER NAME</div>
-        <div class="server-description">Добро пожаловать на лучший DarkRP сервер! Реалистичная экономика, уникальные работы, и нормальная администрация.</div>
-        
-        <div class="loading-bar">
-            <div class="loading-progress" id="progress-bar"></div>
-        </div>
-        <div class="loading-text" id="loading-text">Загрузка... Пожалуйста, подожди.</div>
-        
-        <!-- <div class="server-rules">
-            <h2>Server Rules</h2>
-            <ul>
-                <li>No RDM (Random Death Match) - Don't kill players without RP reason</li>
-                <li>No FailRP - Play your role realistically</li>
-                <li>Respect all players and staff members</li>
-                <li>No exploiting or hacking</li>
-                <li>No building in areas that disrupt gameplay</li>
-            </ul>
+        <div class="server-info">
+            <!-- <img class="logo" src="https://your-server-domain.com/images/logo.png" alt="Server Logo"> -->
+            <div class="server-name">YOUR DARKRP SERVER NAME</div>
+            <div class="server-description">Добро пожаловать на лучший DarkRP сервер! Реалистичная экономика, уникальные работы, и нормальная администрация.</div>
+            
+            <div class="loading-bar">
+                <div class="loading-progress" id="progress-bar"></div>
+            </div>
+            <div class="loading-text" id="loading-text">Загрузка... Пожалуйста, подожди.</div>
+            
+            <div class="map-info" id="map-info">
+                Карта: <span id="current-map">Загрузка...</span><br>
+                Игроки: <span id="player-count">0</span>/<span id="max-players">0</span>
+            </div>
         </div>
         
-        <div class="social-links">
-            <a href="https://discord.gg/yourserver" class="social-link" target="_blank">Discord</a>
-            <a href="https://steamcommunity.com/groups/yourserver" class="social-link" target="_blank">Steam Group</a>
-            <a href="https://your-server-domain.com" class="social-link" target="_blank">Website</a>
+        <div class="content-area">
+            <!-- This area is intentionally left empty as per the original commented out code -->
+            <!-- You can uncomment and move the server-rules and social-links here if needed -->
         </div>
-    </div> -->
+    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
@@ -149,6 +171,8 @@
         function GameDetails(servername, serverurl, mapname, maxplayers, steamid, gamemode, volume, language) {
             document.title = servername + " - Загрузка";
             document.querySelector('.server-name').textContent = servername;
+            document.getElementById('current-map').textContent = mapname;
+            document.getElementById('max-players').textContent = maxplayers;
         }
         
         // This function is called when a file starts downloading
@@ -166,9 +190,16 @@
             filesNeeded = needed;
         }
         
-        // Mock loading for testing in browser
+        function DownloadingFile(fileName) {
+            document.getElementById('loading-text').textContent = "Загрузка: " + fileName;
+        }
+        
+        // ФЕЙК-ЗАГРУЗКА ДЛЯ ТЕСТОВ В БРАУЗЕРЕ
         if (typeof Garry === 'undefined') {
             let progress = 0;
+            document.getElementById('current-map').textContent = "rp_downtown_v4c";
+            document.getElementById('max-players').textContent = "32";
+            
             const interval = setInterval(() => {
                 progress += Math.random() * 5;
                 if (progress >= 100) {
