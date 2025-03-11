@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your DarkRP Server - Loading</title>
+    <title>BebrouRP</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Onest:wght@100..900&family=Unbounded:wght@200..900&display=swap');
 
@@ -43,6 +43,7 @@
             font-weight: bold;
             margin-bottom: 10px;
             text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            font-family: 'Unbounded', sans-serif;
         }
         
         .server-description {
@@ -118,14 +119,14 @@
     <div class="container">
         <img class="logo" src="https://your-server-domain.com/images/logo.png" alt="Server Logo">
         <div class="server-name">YOUR DARKRP SERVER NAME</div>
-        <div class="server-description">Welcome to the best DarkRP experience! Realistic economy, custom jobs, and an active staff team.</div>
+        <div class="server-description">Добро пожаловать на лучший DarkRP сервер! Реалистичная экономика, уникальные работы, и нормальная администрация.</div>
         
         <div class="loading-bar">
             <div class="loading-progress" id="progress-bar"></div>
         </div>
-        <div class="loading-text" id="loading-text">Loading... Please wait</div>
+        <div class="loading-text" id="loading-text">Загрузка... Пожалуйста, подожди.</div>
         
-        <div class="server-rules">
+        <!-- <div class="server-rules">
             <h2>Server Rules</h2>
             <ul>
                 <li>No RDM (Random Death Match) - Don't kill players without RP reason</li>
@@ -141,13 +142,13 @@
             <a href="https://steamcommunity.com/groups/yourserver" class="social-link" target="_blank">Steam Group</a>
             <a href="https://your-server-domain.com" class="social-link" target="_blank">Website</a>
         </div>
-    </div>
+    </div> -->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
         // GameDetails is called by Garry's Mod
         function GameDetails(servername, serverurl, mapname, maxplayers, steamid, gamemode, volume, language) {
-            document.title = servername + " - Loading";
+            document.title = servername + " - Загрузка";
             document.querySelector('.server-name').textContent = servername;
         }
         
@@ -174,7 +175,7 @@
                 if (progress >= 100) {
                     progress = 100;
                     clearInterval(interval);
-                    document.getElementById('loading-text').textContent = "Download complete! Joining server...";
+                    document.getElementById('loading-text').textContent = "Загрузка завершена! Присоединяемся...";
                 }
                 document.getElementById('progress-bar').style.width = progress + '%';
             }, 500);
